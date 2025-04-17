@@ -17,14 +17,14 @@ class AdminFeeController extends Controller
 
     public function index()
     {
-        $users = User::where('level', '!=', 'admin')->get();
+        $users = User::where('level', '!=', 'admin')->with('kos')->get();
         return view('admin.fees.index', compact('users'));
     }
 
     public function show($userId)
     {
         $user = User::findOrFail($userId);
-        $payments = $user->payments()->orderBy('installment_number')->get();
+        $payments = $user->payments()->orderBy('angsuran_ke')->get();
         return view('admin.fees.show', compact('user', 'payments'));
     }
 
